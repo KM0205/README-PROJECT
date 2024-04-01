@@ -37,8 +37,8 @@
  
     ```mermaid
     graph LR;
-       untracked (не отслеживаемый) -- "git add" --> staged (подготовлен к коммиту);
-	   staged (подготовлен к коммиту) -- "git commit -m" --> tracked/comitted (закомичен);
+       A(untracked) -- "git add" --> B(staged);
+       C(staged) -- "git commit -m" --> D(tracked/comitted);
     ```
 
 6.  Просмотр изменений
