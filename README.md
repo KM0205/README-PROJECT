@@ -113,7 +113,7 @@
 
       Пример: заменим коммит "Добавить главную страницу" на "Добавить главную страницу и стили" без добавления файла в коммит
       
-      git --amend -m "Добавить главную страницу и стили"
+      git commit --amend -m "Добавить главную страницу и стили"
       
 	  git log -- oneline
 	  
@@ -121,5 +121,113 @@
 	  
 	  (Хеш коммита снова поменялся, потому что изменились сообщение и время коммита. Файлы в комите осталить теме же)
 	  
-11. 
+11. Как откатиться назад, если всё сломалось:
+	  
+	a) Выполнить unstage изменений - git restore --staged <имя файла>
+	
+		    Пример:
+		
+		    $ touch example.txt # создали ненужный файл
+		
+		    $ git add example.txt # добавили его в staged
+
+		    $ git status # проверили статус
+		
+		    Changes to be committed:
+		
+			    (use "git restore --staged <file>..." to unstage)
+			
+			    new file:   example.txt
+
+		    $ git restore --staged example.txt
+		
+		    $ git status # проверили статус
+
+		    Untracked files:
+		
+			    (use "git add <file>..." to include in what will be committed)
+			
+				    example.txt
+
+		    no changes added to commit (use "git add" and/or "git commit -a")
+		
+		    # файл example.txt из staged вернулся обратно в untracked 
+		
+		Вызов git restore --staged example.txt перевёл example.txt из staged обратно в untracked.
+		
+		Чтобы «сбросить» все файлы из staged обратно в untracked/modified, 
+		
+		можно воспользоваться командой git restore --staged .: 
+		
+		она сбросит всю текущую папку (.).
+		
+	б) «Откатить» коммит — git reset --hard <commit hash>
+	
+			Иногда нужно «откатить» то, что уже было закоммичено, 
+			
+			то есть вернуть состояние репозитория к более раннему. 
+			
+			Для этого используют команду git reset --hard <commit hash> 
+			
+			(от англ. reset  — «сброс», «обнуление» и hard — «суровый»).
+			
+			Пример:
+			
+			$ git log --oneline # хеш можно найти в истории
+			
+			    7b972f5 (HEAD -> master) style: добавить комментарии, расставить отступы
+			
+			    b576d89 feat: добавить массив Expenses и цикл для добавления трат # вот сюда и вернёмся
+			
+			    4b58962 refactor: разделить analyzeExpenses() на countSum() и saveExpenses()
+						
+			$ git reset --hard b576d89
+			
+			# теперь мы на этом коммите
+			
+			HEAD is now at b576d89 feat: добавить массив Expenses и цикл для добавления трат
+
+			Будьте осторожны с командой git reset --hard! 
+			
+			При удалении коммитов можно потерять что-то нужное.
+			
+	в) «Откатить» изменения, которые не попали ни в staging, ни в коммит, — git restore <file>
+	
+			Может быть так, что вы случайно изменили файл, который не планировали. 
+			
+			Теперь он отображается в Changes not staged for commit (modified). 
+			
+			Чтобы вернуть всё «как было», можно выполнить команду git restore <file>.
+			
+			Пример:
+			
+			# случайно изменили файл example.txt
+			
+			$ git status
+			
+			  On branch main
+			
+			  Changes not staged for commit:
+			
+			    (use "git add <file>..." to update what will be committed)
+			
+			    (use "git restore <file>..." to discard changes in working directory)
+					
+					modified:   example.txt
+			
+			
+			
+			$ git restore example.txt
+			
+			$ git status
+			
+			  On branch main
+			
+			  nothing to commit, working tree clean 
+			  
+			Изменения в файле «откатятся» до последней версии, 
+			
+			которая была сохранена через git commit или git add.
+			
+12. 
 	
