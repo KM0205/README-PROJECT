@@ -692,7 +692,7 @@
 				
 				удобны для добавления исключений из других правил .gitignore
 				
-	  б) .gitignore и git 
+	  б) git status --ignored 
 	  
 			Игнорируемые файлы не отображаются в выводе команды git status, 
 			
@@ -704,5 +704,31 @@
 			
 			В таком случае в выводе git status появится раздел Ignored files
 			
-15. 
+15. Клонировать репозиторий git clone
+
+	  Откройте этот репозиторий. Нажмите на зелёную кнопку Code. 
+	  
+	  Появится окно со ссылкой. Если вы уже настроили SSH-ключ, 
+	  
+	  убедитесь что выбрана опция SSH и нажмите на кнопку с двумя квадратами 
+	  
+	  справа — она скопирует ссылку в буфер обмена. Вы также можете скопировать ссылку вручную.
+	  
+			ВАЖНО!!! (копировать нужно HTTPS) 
+			
+			$ git clone https://github.com/yandex-praktikum/git-clone-practice.git
+
+	  Убедитесь в том, что репозитории связаны, командой git remote -v.
+	  
+			$ cd git-clone-lesson
+			
+			$ git remote -v
+			
+			origin    git@github.com:yandex-praktikum/git-clone-lesson.git (fetch)
+			
+			origin    git@github.com:yandex-praktikum/git-clone-lesson.git (push)
+
+	  Готово! Теперь на вашей машине есть копия удалённого репозитория.
+	  
+16. 
 	
