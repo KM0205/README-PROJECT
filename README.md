@@ -816,7 +816,7 @@
 			
 				$ git branch 
 				
-				* main # мы в основной ветке
+				* master # мы в основной ветке
 
 				"чтобы выйти из просмотра веток, может понадобиться Q!"
 
@@ -848,7 +848,7 @@
   
 		feature/add-branch-info -- появилась новая
 
-		* main                     
+		* master                     
 		
 		* значит, что мы находимся в основной ветке 
 		
@@ -863,5 +863,70 @@
 		
 		что в них происходит.
 		
-20. 
+20. Переключиться на другую ветку — git checkout
+
+		Чтобы начать работу в feature/add-branch-info, перейдите в неё с помощью команды 
+		
+		git checkout с флагом — названием ветки: git checkout feature/add-branch-info.
+		
+			$ git checkout feature/add-branch-info # перешли в новую ветку
+
+				Switched to branch 'feature/add-branch-info'
+
+			$ git branch # проверили
+
+				* feature/add-branch-info # теперь находимся тут
+  
+				  master
+				
+			Строчка Switched to branch... (англ. «переключено на ветку…») сообщает, 
+			
+			на какую ветку вы только что переключились.
+			
+	Создать ветку и сразу переключиться на неё — git checkout -b <название_ветки>
 	
+		Можно создать ветку и сразу начать в ней работать. За это отвечает команда 
+		
+		git checkout с флагом -b (от англ. branch) и названием ветки. 
+		
+		Эта команда делает то же самое, что и последовательность команд 
+		
+		git branch %название-ветки% && git checkout %название-ветки%.
+
+			$ git checkout -b bugfix/fix-branch # создали ветку и сразу на неё переключились
+
+				Switched to a new branch 'bugfix/fix-branch'
+
+			$ git branch
+
+				* bugfix/fix-branch # сразу в нужной ветке
+
+				feature/add-branch-info
+
+				master
+						
+	На какой коммит указывает bugfix/fix-branch
+	
+		Ветка в Git — это указатель на коммит. Когда вы делаете новый коммит в ветке, 
+		
+		этот указатель передвигается вперёд. Пока вы не вносили новые коммиты в ветку bugfix/fix-branch, 
+		
+		поэтому она указывает на тот же коммит, что и основная ветка. 
+		
+		Убедитесь в этом с помощью команды git log --oneline.
+		
+			$ git checkout bugfix/fix-branch
+
+			$ git log --oneline
+
+				a7eb909 (HEAD -> bugfix/fix-branch, master) Добавить файл README
+
+			$ git checkout feature/add-branch-info
+
+			$ git log --oneline
+
+				abd591c (HEAD -> feature/add-branch-info) Добавить git branch и git checkout в README
+
+				a7eb909 (master, bugfix/fix-branch) Добавить файл README
+				
+21. 
